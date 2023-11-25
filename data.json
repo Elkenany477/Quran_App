@@ -1,0 +1,16 @@
+{
+    "Posts":[
+        {
+            "id":"1",
+            "like":"true"
+        },
+        {
+            "id":"2",
+            "like":"false"
+        },
+        {
+            "id":"3",
+            "like":"true"
+        }
+    ]
+}

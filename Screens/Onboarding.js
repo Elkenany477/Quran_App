@@ -10,6 +10,8 @@ import {
     Image,
     Pressable,
     TouchableOpacity,
+    I18nManager
+
 } from 'react-native';
 
 const { width, height } = Dimensions.get('screen')
@@ -59,9 +61,12 @@ const Slide = ({ Items }) => {
 
 
 const OnBoarding = () => {
-    const [CurrrentIndex, setCurrrentIndex] = React.useState(0);
+    const [CurrrentIndex, setCurrrentIndex] = React.useState(Data.length - 1);
     const ref = React.useRef();
     const navigation = useNavigation()
+
+    React.useEffect(() => {
+    }, [])
 
     {/* pagination content design */ }
     const Pagination = () => {
@@ -83,25 +88,27 @@ const OnBoarding = () => {
     {/* Content of Move Button */ }
     const MoveBtn = () => {
         return (CurrrentIndex == 0) ? (
-            <TouchableOpacity onPress={GoNextBtn}
-                activeOpacity={.9} style={styles.NextBtn}>
-                <Text style={styles.NextTxt}>التالى</Text>
-            </TouchableOpacity>
+            <Pressable onPress={GoHome} activeOpacity={.9}
+                style={styles.StartBtn}>
+                <Text style={styles.StartTxt}>إبدأ الان</Text>
+            </Pressable>
         ) : (
             (CurrrentIndex == (Data.length - 1)) ? (
-                <Pressable onPress={GoHome} activeOpacity={.9}
-                    style={styles.StartBtn}>
-                    <Text style={styles.StartTxt}>إبدأ الان</Text>
-                </Pressable>
+                <TouchableOpacity onPress={GoNextBtn}
+                    activeOpacity={.9} style={styles.NextBtn}>
+                    <Text style={styles.NextTxt}>التالى</Text>
+                </TouchableOpacity>
+
             ) : (
                 <View style={styles.SecondNextBtn}>
-                    <Pressable onPress={GoBackBtn}
-                        style={styles.previosBtn}>
-                        <Text style={styles.previosTxt}>السابق</Text>
-                    </Pressable>
+
                     <Pressable onPress={GoNextBtn}
                         style={styles.NextBtn}>
                         <Text style={styles.NextTxt}>التالى</Text>
+                    </Pressable>
+                    <Pressable onPress={GoBackBtn}
+                        style={styles.previosBtn}>
+                        <Text style={styles.previosTxt}>السابق</Text>
                     </Pressable>
                 </View>
             )
@@ -111,7 +118,7 @@ const OnBoarding = () => {
     {/* Next Btn Action Function */ }
 
     const GoNextBtn = () => {
-        const NextCurrentIndex = (CurrrentIndex + 1);
+        const NextCurrentIndex = (CurrrentIndex - 1);
         if (CurrrentIndex != Data.length) {
             const offset = NextCurrentIndex * width;
             ref?.current.scrollToOffset({ offset });
@@ -122,7 +129,7 @@ const OnBoarding = () => {
     {/* Back Btn Action Function */ }
 
     const GoBackBtn = () => {
-        const BackIndex = CurrrentIndex - 1;
+        const BackIndex = CurrrentIndex + 1;
         if (CurrrentIndex != Data.length) {
             const offset = BackIndex * width;
             ref.current.scrollToOffset({ offset });
@@ -133,7 +140,7 @@ const OnBoarding = () => {
     {/* Skip Btn Function Content */ }
 
     const OnSkip = () => {
-        const lastIndex = (Data.length - 1)
+        const lastIndex = 0
         if (CurrrentIndex != Data.length) {
             const offset = lastIndex * width
             ref.current.scrollToOffset({ offset });
@@ -172,7 +179,7 @@ const OnBoarding = () => {
                     pagingEnabled
                     scrollEventThrottle={16}
                     onMomentumScrollEnd={UpdateCurrentIndex}
-
+                    inverted
                 />
             </View>
             <View style={styles.PaginationViewer}>
@@ -199,8 +206,8 @@ const styles = StyleSheet.create({
     },
     skip: {
         fontSize: 15,
-        textAlign: "right",
-        marginRight: 20,
+        textAlign: 'left',
+        marginLeft: 20,
         color: Colors.Black,
         fontWeight: "bold"
     },
@@ -226,7 +233,7 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         borderWidth: 2,
         borderColor: Colors.Third,
-        marginLeft: 10
+        marginLeft: 10,
     },
     Moves_Btns: {
         flex: 0.1,
@@ -262,7 +269,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         justifyContent: "center",
         alignItems: "center",
-        marginRight: 15
+        marginLeft: 15
     },
     StartBtn: {
         width: "60%",

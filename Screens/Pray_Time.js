@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import { Colors } from '../Constants/Colors/Themes';
 
-const SebhaScreen = () => {
+const Pray_Timig = () => {
     return (
         <View style={styles.Container}>
-            <Text style={styles.txt}>SebhaScreen</Text>
+            <Text style={styles.txt}>Tasbih</Text>
         </View>
     );
 }
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SebhaScreen;
+export default Pray_Timig;
